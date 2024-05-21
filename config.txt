@@ -1,5 +1,10 @@
-"Rio de Janeiro\n"
-"Sâo Paulo\n"
-"Minas Gerais\n"
-"Espírito Santo\n"
-"Bahia\n"
+"Rio de Janeiro";
+"São Paulo";
+"Minas Gerais";
+"Espírito Santo";
+"Bahia";
+"Ceará";
+"Sergipe";
+"Mato Grosso";
+"Mato Grosso do Sul";
+"Goiás";
