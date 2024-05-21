@@ -22,11 +22,9 @@ textoEntradaNome = None
 textoEntradaCpf = None
 textoEntradaEstado = None
 
-# Função para salvar os dados no banco de dados
 def salvar_dados():
     global textoEntradaNome, textoEntradaCpf, textoEntradaEstado
 
-    # Verificar se os campos estão preenchidos
     if textoEntradaNome.get() and textoEntradaCpf.get() and textoEntradaEstado.get():
         # Verificar se o CPF é válido
         if not VerificarCPF(textoEntradaCpf.get()):
@@ -37,18 +35,15 @@ def salvar_dados():
         conn = sqlite3.connect('dados.db')
         cursor = conn.cursor()
 
-        # Criar a tabela se não existir
         cursor.execute('''CREATE TABLE IF NOT EXISTS clientes
                           (id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nome TEXT NOT NULL,
                           cpf TEXT NOT NULL,
                           estado TEXT NOT NULL)''')
 
-        # Inserir os dados na tabela
         cursor.execute("INSERT INTO clientes (nome, cpf, estado) VALUES (?, ?, ?)", (textoEntradaNome.get(), textoEntradaCpf.get(), textoEntradaEstado.get()))
         conn.commit()
 
-        # Fechar a conexão com o banco de dados
         conn.close()
 
         mb.showinfo("Sucesso", "Dados salvos com sucesso!")
