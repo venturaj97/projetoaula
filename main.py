@@ -75,10 +75,19 @@ def main():
     textoEntradaEstado = tkinter.StringVar()
     e3 = tkinter.Entry(canvas, textvariable=textoEntradaEstado)
     e3.place(x=150, y=110)  
+       
+    #Dropdown
+    n = tkinter.StringVar()
+    escolha = ttk.Combobox(root, width=3)
+    escolha.place(x=150,y=140)
+
+    # Adição de itens no Combobox
+    escolha['values'] = ('CLT',' MEI',' SÓCIO')
 
     # Botão para salvar os dados
     botao_salvar = tkinter.Button(canvas, text="Salvar", command=salvar_dados)
-    botao_salvar.place(x=100, y=150)  
+    botao_salvar.place(x=50, y=150)  
+
 
     root.mainloop()
 
