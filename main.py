@@ -4,6 +4,19 @@ from tkinter import ttk
 import sqlite3
 from PIL import Image, ImageTk
 
+# Função para verificar se o CPF é válido
+def VerificarCPF(CPF):
+    # CPF deve ter 11 dígitos
+    if len(CPF) != 11:
+        return False
+
+    # Verificar se todos os caracteres são dígitos
+    if not CPF.isdigit():
+        return False
+
+    return True
+
+
 # Variáveis globais para armazenar os valores dos campos de entrada
 textoEntradaNome = None
 textoEntradaCpf = None
@@ -15,6 +28,11 @@ def salvar_dados():
 
     # Verificar se os campos estão preenchidos
     if textoEntradaNome.get() and textoEntradaCpf.get() and textoEntradaEstado.get():
+        # Verificar se o CPF é válido
+        if not VerificarCPF(textoEntradaCpf.get()):
+            mb.showerror("Erro", "CPF inválido.")
+            return
+
         # Conectar ao banco de dados SQLite (ou criar se não existir)
         conn = sqlite3.connect('dados.db')
         cursor = conn.cursor()
