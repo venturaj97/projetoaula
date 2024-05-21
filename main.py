@@ -16,6 +16,15 @@ def VerificarCPF(CPF):
 
     return True
 
+## Função para ler os estados de um arquivo .txt
+def ler_estados():
+    try:
+        with open('config.txt', 'r', encoding='utf-8') as file:
+            estados = file.readline().strip().split(';')
+        return estados
+    except FileNotFoundError:
+        mb.showerror("Erro", "Arquivo de estados não encontrado.")
+        return []
 
 # Variáveis globais para armazenar os valores dos campos de entrada
 textoEntradaNome = None
@@ -29,6 +38,15 @@ def salvar_dados():
         # Verificar se o CPF é válido
         if not VerificarCPF(textoEntradaCpf.get()):
             mb.showerror("Erro", "CPF inválido.")
+            return
+
+        # Verificar se o estado é válido
+        estados = ler_estados()
+        print("Estados válidos:", estados)  # Depuração
+        estado_inserido = textoEntradaEstado.get()
+        print("Estado inserido:", estado_inserido)  # Depuração
+        if estado_inserido not in estados:
+            mb.showerror("Erro", "Estado inválido.")
             return
 
         # Conectar ao banco de dados SQLite (ou criar se não existir)
