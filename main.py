@@ -2,57 +2,52 @@ import tkinter
 from tkinter import messagebox as mb
 from tkinter import ttk
 import sqlite3
+from PIL import Image, ImageTk
 
 def chamarBotao():
     # Função de exemplo para o botão 'Salvar'
     print("Salvo com sucesso")
 
-
 def main():
     root = tkinter.Tk()
     root.title("Trabalho RAD")
     root.resizable(False, False)
-    
-    label = tkinter.Label(root, text="Nome")
-    label.pack()
 
-    textoEntrada = tkinter.StringVar()
-    e1 = tkinter.Entry(root)
-    e1.bind('<Key>', lambda x:textoEntrada.set(e1.get()+x.char))
-    e1.pack()
-    
-    test2 = tkinter.Button(root, text="Salvar")
-    test2['command'] = chamarBotao
+    # Abrir a imagem usando Pillow
+    imagem = Image.open("background.png")
 
-    
-    label = tkinter.Label(root, text="Cpf")
-    label.pack()
+    # Converter a imagem para um formato que o Tkinter possa usar
+    imagem_tk = ImageTk.PhotoImage(imagem)
 
-    textoEntrada = tkinter.StringVar()
-    e1 = tkinter.Entry(root)
-    e1.bind('<Key>', lambda x:textoEntrada.set(e1.get()+x.char))
-    e1.pack()
-    
-    test2 = tkinter.Button(root, text="Salvar")
-    test2['command'] = chamarBotao
+    # Adicionando a imagem de fundo
+    canvas = tkinter.Canvas(root, width=imagem.width, height=imagem.height)
+    canvas.pack(fill="both", expand=True)
+    canvas.create_image(0, 0, image=imagem_tk, anchor="nw")
 
-    
-    label = tkinter.Label(root, text="Estado")
-    label.pack()
+    label = tkinter.Label(canvas, text="Nome")
+    label.place(x=50, y=50) 
 
-    textoEntrada = tkinter.StringVar()
-    e1 = tkinter.Entry(root)
-    e1.bind('<Key>', lambda x:textoEntrada.set(e1.get()+x.char))
-    e1.pack()
-    
-    test2 = tkinter.Button(root, text="Salvar")
-    test2['command'] = chamarBotao
+    textoEntradaNome = tkinter.StringVar()
+    e1 = tkinter.Entry(canvas, textvariable=textoEntradaNome)
+    e1.place(x=150, y=50) 
 
-    test2.pack()
+    label = tkinter.Label(canvas, text="Cpf")
+    label.place(x=50, y=80)  
 
-    root.iconify() 
-    root.update()
-    root.deiconify() 
+    textoEntradaCpf = tkinter.StringVar()
+    e2 = tkinter.Entry(canvas, textvariable=textoEntradaCpf)
+    e2.place(x=150, y=80)  
+
+    label = tkinter.Label(canvas, text="Estado")
+    label.place(x=50, y=110)  
+
+    textoEntradaEstado = tkinter.StringVar()
+    e3 = tkinter.Entry(canvas, textvariable=textoEntradaEstado)
+    e3.place(x=150, y=110)  
+
+    test2 = tkinter.Button(canvas, text="Salvar", command=chamarBotao)
+    test2.place(x=100, y=150)  
+
     root.mainloop()
 
 main()
